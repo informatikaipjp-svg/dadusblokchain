@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Blockchain System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">⬡</div>
+            <div>
+                <h2>Student</h2>
+                <span>Blockchain</span>
+            </div>
+        </div>
+
+        <nav>
+            <button class="nav-item active" onclick="showSection('dashboard')">
+                🏠 Dashboard
+            </button>
+
+            <button class="nav-item" onclick="showSection('addStudent')">
+                ➕ Aumenta Estudante
+            </button>
+
+            <button class="nav-item" onclick="showSection('students')">
+                🔎 Buka Estdante
+            </button>
+
+            <button class="nav-item" onclick="showSection('blockchain')">
+                ⛓ Blockchain
+            </button>
+
+            <button class="nav-item" onclick="verifyBlockchain()">
+                🛡 Verifikasaun Dadus
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="chain-icon">⬡</div>
+
+            <p>
+                "Kada Dadus Iha blok,
+                Kada blok Ligasaun,
+                Kada Updade Anota."
+            </p>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div>
+                <h1>Student Blockchain System</h1>
+                <p>
+                    Data Seguru • Transparante • Difisil Atu muda
+                </p>
+            </div>
+
+            <div class="admin">
+                👤 Hermina ▾
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+        <section class="content">
+
+            <!-- DASHBOARD -->
+            <div id="dashboard" class="section">
+
+                <div class="welcome-card">
+
+                    <div class="welcome-icon">
+                        🎓
+                    </div>
+
+                    <div>
+                        <h2>Bemvindu!</h2>
+
+                        <p>
+                            Sofware ida nee rai dadus estudante
+                            Utilijasaun Blocksain   Simples.
+                        </p>
+
+                        <p>
+                            Dadus Sira Sei sai Block.
+                            Salva no hetan salvasaun .
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- STATISTICS -->
+
+                <div class="stats">
+
+                    <div class="stat-card">
+                        <div class="stat-icon blue">👨‍🎓</div>
+
+                        <div>
+                            <span>Total Estudante</span>
+                            <strong id="totalStudents">0</strong>
+                        </div>
+                    </div>
+
+
+                    <div class="stat-card">
+                        <div class="stat-icon purple">⬡</div>
+
+                        <div>
+                            <span>Total Block</span>
+                            <strong id="totalBlocks">0</strong>
+                        </div>
+                    </div>
+
+
+                    <div class="stat-card">
+                        <div class="stat-icon green">✓</div>
+
+                        <div>
+                            <span>Status Blockchain</span>
+                            <strong id="blockchainStatus">
+                                Validu
+                            </strong>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- ADD STUDENT -->
+
+                <div class="card">
+
+                    <div class="card-title">
+                        <h2>➕ Aumenta Estudante</h2>
+                    </div>
+
+                    <form id="studentForm">
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+                                <label>Emis</label>
+
+                                <input
+                                    type="text"
+                                    id="nim"
+                                    placeholder="Exemplu: 2026001"
+                                    required
+                                >
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Naran Estudante</label>
+
+                                <input
+                                    type="text"
+                                    id="name"
+                                    placeholder="Exemplu: Herminha"
+                                    required
+                                >
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Kursu</label>
+
+                                <select id="major" required>
+
+                                    <option value="">
+                                        Hili Kursu
+                                    </option>
+
+                                    <option>
+                                        IPS
+                                    </option>
+
+                                    <option>
+                                        IPA
+                                    </option>
+
+                      
+
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Data Rejistu</label>
+
+                                <input
+                                    type="number"
+                                    id="year"
+                                    placeholder="Exemplu: 2026"
+                                    min="2000"
+                                    max="2100"
+                                    required
+                                >
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-buttons">
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                            >
+                                💾 RAI
+                            </button>
+
+                            <button
+                                type="reset"
+                                class="btn btn-secondary"
+                            >
+                                ↻ Reset
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+                <!-- STUDENT TABLE -->
+
+                <div class="card">
+
+                    <div class="table-header">
+
+                        <h2>👥 Daftar Estudante</h2>
+
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Cari nama atau NIM..."
+                            oninput="renderStudents()"
+                        >
+
+                    </div>
+
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+                                    <th>No</th>
+                                    <th>Emis</th>
+                                    <th>Naran</th>
+                                    <th>Turma Class</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="studentTableBody">
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ADD STUDENT SECTION -->
+
+            <div id="addStudent" class="section hidden">
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <h2>➕ Aumenta Dadus Estudante</h2>
+
+                        <p>
+                            Dadus Neebe Rai Sei Sai Block
+                        </p>
+
+                    </div>
+
+
+                    <form id="studentForm2">
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label>Emis</label>
+
+                                <input
+                                    type="text"
+                                    id="nim2"
+                                    placeholder="2026001"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Naran</label>
+
+                                <input
+                                    type="text"
+                                    id="name2"
+                                    placeholder="João Silva"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Kursu</label>
+
+                                <select id="major2" required>
+
+                                    <option value="">
+                                        Hili Kursu
+                                    </option>
+
+                                    <option>IPS</option>
+                                    <option>IPA</option>
+                                    
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Data Resistu</label>
+
+                                <input
+                                    type="number"
+                                    id="year2"
+                                    placeholder="2026"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+                            ⛓ Rai Ba Blockchain
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <!-- STUDENTS -->
+
+            <div id="students" class="section hidden">
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <h2>🔎 Buka Estudante</h2>
+
+                    </div>
+
+                    <input
+                        class="big-search"
+                        type="text"
+                        id="searchStudent"
+                        placeholder="Tau Naran Ou Emis..."
+                        oninput="searchStudentPage()"
+                    >
+
+                    <div
+                        id="searchResult"
+                        class="search-result"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- BLOCKCHAIN -->
+
+            <div id="blockchain" class="section hidden">
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <h2>⛓ Dadus Blockchain</h2>
+
+                        <p>
+                            Kada block Iha hash No
+                            previous hash.
+                        </p>
+
+                    </div>
+
+
+                    <div id="blockchainContainer">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- MODAL -->
+
+<div id="modal" class="modal">
+
+    <div class="modal-content">
+
+        <button
+            class="close"
+            onclick="closeModal()"
+        >
+            ×
+        </button>
+
+        <h2>Detail Block</h2>
+
+        <div id="modalBody"></div>
+
+    </div>
+
+</div>
+
+
+<script src="blockchain.js"></script>
+
+</body>
+</html>
